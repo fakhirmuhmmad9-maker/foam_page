@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Blue Login UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top left, #f0f6ff 0%, #c6defe 55%, #a8cdfc 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Decorative bottom-left curved accent */
+    body::after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      left: -60px;
+      width: 240px;
+      height: 140px;
+      background: #6da8f7;
+      border-radius: 50%;
+      opacity: 0.75;
+      z-index: 0;
+    }
+
+    /* Main Blue Card */
+    .login-card {
+      position: relative;
+      z-index: 1;
+      width: 390px;
+      padding: 85px 34px 36px;
+      border-radius: 26px;
+      background: linear-gradient(160deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+      box-shadow: 
+        0 28px 50px rgba(29, 78, 216, 0.35),
+        inset 0 3px 6px rgba(255, 255, 255, 0.45),
+        inset 0 -6px 12px rgba(15, 45, 130, 0.45);
+      border: 1.5px solid rgba(147, 197, 253, 0.5);
+    }
+
+    /* Top Floating Avatar Circle */
+    .avatar-badge {
+      position: absolute;
+      top: -68px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #4f94f8, #2563eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 
+        0 16px 28px rgba(15, 45, 130, 0.45),
+        inset 0 4px 8px rgba(255, 255, 255, 0.55),
+        inset 0 -6px 12px rgba(20, 55, 150, 0.5);
+      border: 2px solid rgba(191, 219, 254, 0.6);
+    }
+
+    .avatar-badge svg {
+      width: 72px;
+      height: 72px;
+      filter: drop-shadow(0 5px 6px rgba(15, 45, 130, 0.35));
+    }
+
+    /* Input Group Wrapper */
+    .input-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 54px;
+      margin-bottom: 20px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #4287f5 0%, #2c6fe0 100%);
+      box-shadow: 
+        0 10px 18px rgba(15, 45, 130, 0.32),
+        inset 0 2px 3px rgba(255, 255, 255, 0.4),
+        inset 0 -3px 6px rgba(15, 45, 130, 0.35);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-group:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 14px 24px rgba(15, 45, 130, 0.42),
+        inset 0 2px 4px rgba(255, 255, 255, 0.55);
+    }
+
+    /* Left White Icon Box inside Input */
+    .input-icon-box {
+      width: 56px;
+      height: 100%;
+      background: linear-gradient(180deg, #ffffff 0%, #e6eefc 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 
+        inset -2px 0 4px rgba(29, 78, 216, 0.15),
+        inset 0 2px 3px rgba(255, 255, 255, 0.9);
+      flex-shrink: 0;
+    }
+
+    .input-icon-box svg {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 3px 3px rgba(29, 78, 216, 0.35));
+    }
+
+    .input-group input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 0 18px;
+      color: #ffffff;
+      font-size: 15.5px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    /* Options Row (Remember me & Forgot Password) */
+    .options-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 6px 2px 26px;
+      font-size: 13.5px;
+      color: #ffffff;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+    }
+
+    /* Custom 3D Checkbox */
+    .custom-checkbox {
+      width: 21px;
+      height: 21px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, #ffffff 0%, #e2ecfc 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 
+        0 4px 8px rgba(15, 45, 130, 0.3),
+        inset 0 1px 2px #ffffff;
+      transition: transform 0.15s ease;
+    }
+
+    .custom-checkbox svg {
+      width: 14px;
+      height: 14px;
+      stroke: #1d4ed8;
+      stroke-width: 3.2;
+      fill: none;
+      opacity: 1;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .remember-label.unchecked .custom-checkbox svg {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    .forgot-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.95;
+      transition: opacity 0.2s;
+    }
+
+    .forgot-link:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /* Bottom Recessed Tray around Login Button */
+    .button-tray {
+      padding: 14px 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #2b6ee2 0%, #387ef2 100%);
+      box-shadow: 
+        inset 0 3px 7px rgba(15, 45, 130, 0.35),
+        0 1px 2px rgba(255, 255, 255, 0.25);
+    }
+
+    /* White 3D Login Button */
+    .login-btn {
+      width: 100%;
+      height: 56px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #e4edfc 100%);
+      color: #1d56d8;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      cursor: pointer;
+      box-shadow: 
+        0 10px 20px rgba(15, 45, 130, 0.35),
+        inset 0 2px 3px #ffffff,
+        inset 0 -3px 5px rgba(180, 200, 240, 0.8);
+      transition: all 0.18s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 14px 24px rgba(15, 45, 130, 0.42),
+        inset 0 2px 4px #ffffff,
+        inset 0 -3px 5px rgba(180, 200, 240, 0.8);
+    }
+
+    .login-btn:active {
+      transform: translateY(2px);
+      box-shadow: 
+        0 4px 10px rgba(15, 45, 130, 0.35),
+        inset 0 2px 5px rgba(160, 185, 230, 0.9);
+    }
+
+    /* Status Toast Message */
+    .status-msg {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 13px;
+      color: #e0edff;
+      min-height: 18px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <!-- Top 3D User Avatar Badge -->
+    <div class="avatar-badge">
+      <svg viewBox="0 0 64 64" fill="none">
+        <defs>
+          <linearGradient id="avatarWhite" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#e3ecfc" />
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="21" r="11" fill="url(#avatarWhite)" />
+        <path d="M13 50C13 39.5 21.5 34 32 34C42.5 34 51 39.5 51 50C51 51.6 49.6 53 48 53H16C14.4 53 13 51.6 13 50Z" fill="url(#avatarWhite)" />
+      </svg>
+    </div>
+
+    <form id="loginForm">
+      <!-- Username Input -->
+      <div class="input-group">
+        <div class="input-icon-box">
+          <svg viewBox="0 0 24 24" fill="none">
+            <defs>
+              <linearGradient id="iconBlue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4d94ff" />
+                <stop offset="100%" stop-color="#1d56d8" />
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="8" r="4.2" fill="url(#iconBlue)" />
+            <path d="M4.5 19.5C4.5 15.6 7.8 13.5 12 13.5C16.2 13.5 19.5 15.6 19.5 19.5C19.5 20.3 18.8 21 18 21H6C5.2 21 4.5 20.3 4.5 19.5Z" fill="url(#iconBlue)" />
+          </svg>
+        </div>
+        <input type="text" id="username" placeholder="Username" required />
+      </div>
+
+      <!-- Password Input -->
+      <div class="input-group">
+        <div class="input-icon-box">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7.5 10V7.5C7.5 5.01 9.51 3 12 3C14.49 3 16.5 5.01 16.5 7.5V10" stroke="url(#iconBlue)" stroke-width="2.6" stroke-linecap="round" />
+            <rect x="5" y="9.5" width="14" height="11.5" rx="3" fill="url(#iconBlue)" />
+            <circle cx="12" cy="14.2" r="1.3" fill="#ffffff" />
+            <path d="M12 15V17.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </div>
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+
+      <!-- Remember Me & Forgot Password -->
+      <div class="options-row">
+        <div class="remember-label" id="rememberToggle">
+          <div class="custom-checkbox">
+            <svg viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span>Remember me</span>
+        </div>
+        <a href="#" class="forgot-link" id="forgotLink">Forgot Password?</a>
+      </div>
+
+      <!-- Button Tray & Login Button -->
+      <div class="button-tray">
+        <button type="submit" class="login-btn">LOGIN</button>
+      </div>
+
+      <div class="status-msg" id="statusMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const rememberToggle = document.getElementById('rememberToggle');
+    const loginForm = document.getElementById('loginForm');
+    const statusMsg = document.getElementById('statusMsg');
+    const forgotLink = document.getElementById('forgotLink');
+    const usernameInput = document.getElementById('username');
+
+    let isRemembered = true;
+
+    // Load saved username if previously remembered
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUser = localStorage.getItem('savedUsername');
+      if (savedUser) {
+        usernameInput.value = savedUser;
+      }
+    });
+
+    // Toggle custom 3D checkbox
+    rememberToggle.addEventListener('click', () => {
+      isRemembered = !isRemembered;
+      rememberToggle.classList.toggle('unchecked', !isRemembered);
+    });
+
+    // Handle form submission
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = usernameInput.value.trim();
+      const pass = document.getElementById('password').value.trim();
+
+      if (!user || !pass) {
+        statusMsg.textContent = 'Please enter both username and password.';
+        return;
+      }
+
+      if (isRemembered) {
+        localStorage.setItem('savedUsername', user);
+      } else {
+        localStorage.removeItem('savedUsername');
+      }
+
+      statusMsg.textContent = `Welcome back, ${user}! Logging in...`;
+    });
+
+    // Handle Forgot Password click
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      statusMsg.textContent = 'Password reset link sent to your registered email.';
+    });
+  </script>
+
+</body>
+</html>
